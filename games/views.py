@@ -131,6 +131,7 @@ def under_goals(request):
     return render(request, 'under_goals.html', {
         'nogoals': nogoals
         })
+
     
 def to_win(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
