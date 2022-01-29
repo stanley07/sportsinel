@@ -1,7 +1,12 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% block content %}
+
+<h2>Under Goals</h2>
+
 <div class="container">
-	Under Goals
+	
+{{ nogoals|safe }} 
+
 </div>
-{{ nogoals|safe }} {% endblock %}
+{% endblock %}
