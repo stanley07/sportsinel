@@ -194,3 +194,25 @@ def vip(request):
 
 def gol(request):
     return render(request, 'gol.html')
+
+
+ 
+def gold(request):
+    df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
+    df = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'home_odds', 'draw_odds', 'away_odds', 'predicted_home_score', 'predicted_away_score']]
+    df['total_predicted_goals'] = df['predicted_home_score'] + df['predicted_away_score']
+    df = df.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','home_odds', 'draw_odds', 'away_odds','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
+    df1 = df.sort_values(by=["total_predicted_goals"], ascending=False)
+    df1 = df1.drop(['home_odds', 'draw_odds', 'away_odds'], axis=1)
+    
+    df1 = df1.head(10)
+    dt = ['Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 1.5', 'Over 1.5','Over 1.5','Over 1.5','Over 1.5']
+    df1['Prediction'] = dt
+    df2 = df1.reset_index()
+
+    gold = df2.to_html()
+  
+    return render(request, 'gold.html', {
+        'gold': gold
+        })
+    

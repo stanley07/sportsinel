@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
-from games.views import away_wins,home_wins,home_loose,now,away_loose,gol,under_goals,to_win,over_goals,raw_predictions,top_pick,vip
+from games.views import away_wins,home_wins,home_loose,now,away_loose,gol,under_goals,to_win,over_goals,raw_predictions,top_pick,vip,gold
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('to-win/', to_win, name="to_win"),
     path('vip/', vip, name="vip"),
     path('gol/', gol, name="gol"),
+    path('gold/', gold, name="gold"),
 ]
 
 
