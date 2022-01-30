@@ -24,19 +24,19 @@ from games.views import away_wins,home_wins,home_loose,now,away_loose,gol,under_
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/homewin/', home_wins, name="home_wins"),
-    path('/awaywin/', away_wins, name="away_wins"),
-    path('/homeloose/', home_loose, name="home_loose"),
+    path('homewin/', home_wins, name="home_wins"),
+    path('awaywin/', away_wins, name="away_wins"),
+    path('homeloose/', home_loose, name="home_loose"),
     path('', now),
-    path('/awayloose/', away_loose, name="away_loose"),
-    path('/undergoals/', under_goals, name="under_goals"),
-    path('/overgoals/', over_goals, name="over_goals"),
-    path('/predictions/', raw_predictions, name="raw_predictions"),
-    path('/top-pick/', top_pick, name="top_pick"),
-    path('/to-win/', to_win, name="to_win"),
-    path('/vip/', vip, name="vip"),
-    path('/gol/', gol, name="gol"),
-    path('/gold/', gold, name="gold"),
+    path('awayloose/', away_loose, name="away_loose"),
+    path('undergoals/', under_goals, name="under_goals"),
+    path('overgoals/', over_goals, name="over_goals"),
+    path('predictions/', raw_predictions, name="raw_predictions"),
+    path('top-pick/', top_pick, name="top_pick"),
+    path('to-win/', to_win, name="to_win"),
+    path('vip/', vip, name="vip"),
+    path('gol/', gol, name="gol"),
+    path('gold/', gold, name="gold"),
 ]
 
 
