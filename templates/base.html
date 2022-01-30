@@ -141,88 +141,43 @@
 
 
   <!-- boxes -->
- <section style="background: brown" class="text-light p-5 text-center text-sm-start">
+ <section class="bg-success text-light p-5 text-center text-sm-start">
       <div class="container">
         <div class="row text-center g-4">
-          <h1 class="card-text">Goals</h1>
+          <h1 class="card-text">Goals Predictions</h1>
           <div class="col-md">
             <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/win.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
+             <img src="/static/img/goal.jpg" class="card-img-top" height="210px" alt="...">
              <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Home-</span><span style="color: red">Win</span></h2>
+              <h2 class="card-text"><span style="color: green">Over-</span><span style="color: red">Goals</span></h2>
 
-              <p class="card-text text-dark">Some quick tips on different game outcome.</p>
-              
+              <p class="card-text text-secondary">An over goals prediction is a prediction on whether the total number of goals scored in a match will be higher or lower than the goal total specified in your predictor.</p>
+
               <a href="{% url 'over_goals' %}" class="btn btn-primary">View</a>
              </div>
             </div>
           </div>
-        
           <div class="col-md">
             <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/predict2.png' %}" height="200px" class="card-img-top" alt="soccer!" />
+             <img src="/static/img/save.jpg" class="card-img-top" height="210px" alt="...">
              <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Top-</span><span style="color: red">Predictions</span></h2>
+              <h2 class="card-text"><span style="color: green">Under-</span><span style="color: red">Goals</span></h2>
 
-              <p class="card-text text-secondary">Extraordinary changes are occurring to our daily existence through technological change.</p>
-
-              <a href="{% url 'under_goals' %}" class="btn btn-primary" >View</a>
-             </div>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/predict3.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
-             <div class="card-body">
-              <h2 class="card-text"><span style="color: green">VIP-</span><span style="color: red">Predictions</span></h2>
-
-              <p class="card-text text-secondary">VIP Predictions is admin hand-picked predictions using the same Algo output but personal features</p>
-              <a href="{% url 'vip' %}" class="btn btn-primary">View</a>
+              <p class="card-text text-secondary">An under goals prediction is a prediction on whether the total number of goals scored in a match will be higher or lower than the goal total specified in your predictor.</p>
+              <a class="btn btn-primary" href="{% url 'under_goals' %}">View</a>
               </div>
             </div>
           </div>
-          
-          </div>
-        
-      </div>
-      
-    </section>
-    <!-- boxes2 -->
-  <section class="bg-dark text-white p-5 text-center text-sm-start">
-      <div class="container">
-        <div class="row text-center g-4">
-          <h1 class="card-text">Home Predictions</h1>
           <div class="col-md">
             <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/predict.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
+             <img src="/static/img/images.png" height="210px" class="card-img-top" alt="...">
              <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Home-</span><span style="color: red">Win</span></h2>
+              <h2 class="card-text"><span style="color: green">Goal-</span><span style="color: red">Goal</span><span style="color: green">/No-Goal-Goal</span></h2>
 
-              <p class="card-text text-dark">Some quick tips on different game outcome.</p>
+              <p class="card-text text-secondary">Goal-Goal/No-Goal-Goal is a prediction on whether the two teams are going to score in the match or not</p>
               
-              <a href="{% url 'home_wins' %}" class="btn btn-primary">View</a>
-             </div>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/loss.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
-             <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Home-</span><span style="color: red">Loss</span></h2>
-
-              <p class="card-text text-dark">Some quick tips on different game outcome.</p>
-              <a href="{% url 'home_loose' %}" class="btn btn-primary">View</a>
-             </div>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/4.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
-             <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Home</span>-<span style="color: red">Goal</span></h2>
-
-              <p class="card-text text-dark">Some quick tips on different game outcome.</p>
-              <button type="button" style="color: green">Get Info</button>
+              <a href="{% url 'gol' %}" class="btn btn-primary">View</a>
+              
              </div>
             </div>
           </div>
