@@ -3,7 +3,7 @@ from django.shortcuts import HttpResponse
 from django.contrib import messages
 import numpy as np
 import pandas as pd 
-from IPython.display import display
+
 # Create your views here.
 
 
