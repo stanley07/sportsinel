@@ -3,6 +3,7 @@ from django.shortcuts import HttpResponse
 from django.contrib import messages
 import numpy as np
 import pandas as pd 
+from IPython.display import display
 # Create your views here.
 
 
@@ -19,6 +20,7 @@ def home_wins(request):
     df1 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     df2 = df1.head(30)
+    df2 = df2.style
     df2 = df2.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
     home = df2  
@@ -34,8 +36,10 @@ def home_loose(request):
     #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
     df1 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
-    df2 = df1.tail(30)    
-    df2 = df2.to_html()    
+    
+    ##df2 = df1.tail(30) 
+    df1 = df1.style   
+    df2 = df1.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
     home1 = df2  
     return render(request, 'home_loose.html', {
@@ -53,12 +57,17 @@ def away_wins(request):
     
 
     df1['predicted'] = np.where((df1['predicted_home_score'] <= df1['predicted_away_score']), df1['away_team'], np.nan)
+    df1 = df1.drop(['predicted_home_score', 'predicted_away_score'], axis=1)
     df1 = df1.dropna()
+    df1 = df1.set_index('match_datetime')
+
 
     ##df1 = df1.sort_values(by=["Predicted_away_score"], ascending=False)
     ##df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     ##df2 = df1.head(30)
-    df2 = df1.to_html()    
+    df1 = df1.style
+    df2 = df1.to_html() 
+
     #df1 = df1.sort_values(by=["win"], ascending=False)
     away = df2  
     return render(request, 'away_wins.html', {
@@ -76,9 +85,12 @@ def away_loose(request):
     ##df1 = df1.sort_values(by=["Predicted_away_score"], ascending=False)
     ##df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     df1['predicted'] = np.where((df1['predicted_home_score'] >= df1['predicted_away_score']), df1['home_team'], np.nan)
+    df1 = df1.drop(['predicted_home_score', 'predicted_away_score'], axis=1)
     df1 = df1.dropna()
+    df1 = df1.set_index('match_datetime')
 
     df2 = df1.tail(30)
+    df2 = df2.style
     df2 = df2.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
     away = df2  
@@ -91,14 +103,14 @@ def away_loose(request):
 def raw_predictions(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score']]
+    ##df1['predicted'] = np.where((df1['predicted_home_score'] <= df1['predicted_away_score']), df1['away_team'], np.nan)
+    ##df1 = df1.drop(['predicted_home_score', 'predicted_away_score'], axis=1)
+    ##df1 = df1.dropna()
+    df1 = df1.set_index('match_datetime')
+    df1 = df1.style
     
-    #conditions = [df1['predicted_home_score'] > df1['predicted_away_score'],
-     #             df1['predicted_home_score'] < df1['predicted_away_score']]
-    #choices = ['home_team', 'away_team'] 
-    #df1['prediction'] = np.select(conditions, choices, default='Tie')
-    df1['predicted'] = np.where((df1['predicted_home_score'] <= df1['predicted_away_score']), df1['away_team'], np.nan)
-    df1 = df1.dropna()
     df4 = df1.to_html()
+
 
    # df1['total_predicted_goals'] = df1['predicted_home_score'] + df1['predicted_away_score']
     #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
@@ -124,9 +136,10 @@ def over_goals(request):
     df1 = df1.head(10)
     dt = ['Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 1.5', 'Over 1.5','Over 1.5','Over 1.5','Over 1.5']
     df1['Prediction'] = dt
-    df2 = df1.reset_index()
-
-    goals = df2.to_html()
+    df1 = df1.set_index('Match_Datetime')
+    df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
+    df1 = df1.style
+    goals = df1.to_html()
   
     return render(request, 'over_goals.html', {
         'goals': goals
@@ -145,8 +158,9 @@ def under_goals(request):
     
     dt = ['Under 3.5','Under 3.5','Under 3.5','Under 3.5','Under 3.5', 'Under 3.5', 'Under 3.5', 'Under 3.5', 'Under 3.5','Under 2.5', 'Under 2.5', 'Under 2.5', 'Under 2.5', 'Under 2.5','Under2.5'] 
     df1['Prediction'] = dt
-    df2 = df1.reset_index()
-
+    df1 = df1.set_index('Datetime')
+    df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
+    df2 = df1.style
     nogoals = df2.to_html()
   
     return render(request, 'under_goals.html', {
@@ -165,7 +179,7 @@ def to_win(request):
     
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     df2 = df2.head(15) 
-       
+    df2 = df2.style
     df2 = df2.to_html()
    
        
@@ -197,7 +211,7 @@ def top_pick(request):
     
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     df2 = df2.head(5) 
-       
+    df2 = df2.style   
     df2 = df2.to_html()
    
        
@@ -231,7 +245,7 @@ def gold(request):
     dt = ['Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 1.5', 'Over 1.5','Over 1.5','Over 1.5','Over 1.5']
     df1['Prediction'] = dt
     df2 = df1.reset_index()
-
+    df2 = df2.style
     gold = df2.to_html()
   
     return render(request, 'gold.html', {
