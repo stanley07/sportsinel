@@ -25,13 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rpjvopi9_6t1dt4w4ynf*^o38o@wxqwm^#o^p)^nns8o9&a3di'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['localhost', 'machinepredictor.com', 'www.machinepredictor.com', 'predictor.herokuapp.com']
-
-
-# Application definition
-
+DEBUG = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +34,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'games',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
