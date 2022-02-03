@@ -3,7 +3,7 @@ from django.shortcuts import HttpResponse
 from django.contrib import messages
 import numpy as np
 import pandas as pd 
-
+import csv
 # Create your views here.
 
 
@@ -107,6 +107,7 @@ def raw_predictions(request):
     ##df1 = df1.drop(['predicted_home_score', 'predicted_away_score'], axis=1)
     ##df1 = df1.dropna()
     df1 = df1.set_index('match_datetime')
+    
     df1 = df1.style
     
     df4 = df1.to_html()
@@ -130,17 +131,15 @@ def over_goals(request):
     df = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'home_odds', 'draw_odds', 'away_odds', 'predicted_home_score', 'predicted_away_score']]
     df['total_predicted_goals'] = df['predicted_home_score'] + df['predicted_away_score']
     df = df.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','home_odds', 'draw_odds', 'away_odds','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
-    df1 = df.sort_values(by=["total_predicted_goals"], ascending=False)
+    df1 = df.sort_values(by=["total_predicted_goals"], ascending= False)
     df1 = df1.drop(['home_odds', 'draw_odds', 'away_odds'], axis=1)
     
     df1 = df1.head(10)
     dt = ['Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 2.5', 'Over 1.5', 'Over 1.5','Over 1.5','Over 1.5','Over 1.5']
     df1['Prediction'] = dt
-    df1 = df1.set_index('Match_Datetime')
-    df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
-    df1 = df1.style
-    goals = df1.to_html()
-  
+    df2 = df1.drop(['Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
+    df2 = df2.style
+    goals = df2.to_html()  
     return render(request, 'over_goals.html', {
         'goals': goals
         })
@@ -190,13 +189,22 @@ def to_win(request):
       
     return render(request, 'to_win.html', {
         'home7': home7
-        })    
+        })   
 
 
 
 
 
 def now(request):
+ #   file = open("media/csv/predictions_with_gridsearch.csv")
+  #  csvreader = csv.reader(file)
+   # header = next(csvreader)
+    
+    #rows = []
+    #for row in csvreader:
+     #   rows.append(row[1])
+   
+
     return render(request, 'now.html')
 
 
