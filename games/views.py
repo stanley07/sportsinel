@@ -236,7 +236,28 @@ def top_pick(request):
         })    
 
 def vip(request):
-    return render(request, 'vip.html')
+    df = pd.read_csv("media/csv/predictions_with_gridsearch_selection.csv") 
+    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'selection', 'predicted_result']]
+    ##df1 = datch_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'home_team']]
+    ##df1 = df1.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
+    #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
+    
+    #df1 = df1.drop(df1[df1['selection'] == 'N'].index, inplace = True)
+    #df1 = df1.set_index('match_datetime')
+
+    #df1 = df1.drop(["N"], inplace = True)
+    df2 = df1[df1.selection != "N"]
+
+    
+    df2 = df2.style
+    df2 = df2.to_html()    
+    
+    #df1 = df1.sort_values(by=["win"], ascending=False)
+    finish = df2  
+
+    return render(request, 'vip.html', {
+        'finish': finish
+        })
 
 
 def gol(request):
@@ -245,7 +266,7 @@ def gol(request):
 
  
 def gold(request):
-    df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
+    df = pd.read_csv("media/csv/predictions_with_gridsearch_selection.csv")    
     df = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'home_odds', 'draw_odds', 'away_odds', 'predicted_home_score', 'predicted_away_score']]
     df['total_predicted_goals'] = df['predicted_home_score'] + df['predicted_away_score']
     df = df.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','home_odds', 'draw_odds', 'away_odds','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
