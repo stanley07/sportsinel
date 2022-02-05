@@ -118,7 +118,7 @@ def raw_predictions(request):
     #df2 = df1.reset_index()   
     #df2 = df2.sort_values(by=["win"], ascending=False)
     df1 = df1.set_axis(['match_datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
-    df1 = df1.sort_values(by=["total_predicted_goals"], ascending= False)
+    #df1 = df1.sort_values(by=["total_predicted_goals"], ascending= False)
 
     df2 = df1.style
     raw = df2.to_html()
