@@ -5,6 +5,7 @@ backports.zoneinfo==0.2.1
 black==22.1.0
 click==8.0.3
 cycler==0.11.0
+dateparser==1.1.0
 decorator==5.1.1
 dj-database-url==0.5.0
 Django==4.0.1
@@ -40,11 +41,15 @@ Pygments==2.11.2
 pyparsing==3.0.7
 python-dateutil==2.8.2
 pytz==2021.3
+pytz-deprecation-shim==0.1.0.post0
+regex==2022.1.18
 six==1.16.0
 sqlparse==0.4.2
 stack-data==0.1.4
 tomli==2.0.0
 traitlets==5.1.1
 typing-extensions==4.0.1
+tzdata==2021.5
+tzlocal==4.1
 wcwidth==0.2.5
 whitenoise==5.3.0

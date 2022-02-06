@@ -114,12 +114,13 @@ def raw_predictions(request):
 
 
     df1['predicted_goals'] = df1['predicted_home_score'] + df1['predicted_away_score']
+    
     #df1 = df1.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
     #df2 = df1.reset_index()   
     #df2 = df2.sort_values(by=["win"], ascending=False)
     df1 = df1.set_axis(['match_datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
     #df1 = df1.sort_values(by=["total_predicted_goals"], ascending= False)
-
+    
     df2 = df1.style
     raw = df2.to_html()
 
@@ -261,7 +262,20 @@ def vip(request):
 
 
 def gol(request):
-    return render(request, 'gol.html')
+    df = pd.read_csv("media/csv/predictions_with_gridsearch_selection.csv") 
+    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'selection', 'predicted_result']]
+    
+    df2 = df1[df1.selection != "N"]
+    df2 = df2.style
+    df2 = df2.to_html()    
+    
+    #df1 = df1.sort_values(by=["win"], ascending=False)
+    end = df2  
+
+
+    return render(request, 'gol.html', {
+        'end':end
+        })
 
 
  
