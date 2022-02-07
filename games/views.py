@@ -15,12 +15,13 @@ def now(request):
 def home_wins(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'home_team']]
-    df1 = df1.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
-    #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
-    df1 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
-    #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
+    df1 = df1.set_axis(['Date', 'Country', 'League', 'Home', 'Away','predicted_homescore', 'predicted_awayscore', 'Prediction'], axis=1)
+    df1 = df1.round({'predicted_home_score' : 1, 'predicted_away_score':1})
+    df1 = df1.sort_values(by=["predicted_homescore"], ascending=False)
+    
+
     df2 = df1.head(30)
-    df2 = df2.style
+    df2 = df2.style.set_precision(2)
     df2 = df2.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
     home = df2  
@@ -32,12 +33,12 @@ def home_wins(request):
 def home_loose(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")     
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'away_team']]
-    df1 = df1.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
+    df1 = df1.set_axis(['Date', 'Country', 'League', 'Home', 'Away','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
     #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
     df1 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     
-    ##df2 = df1.tail(30) 
+    df2 = df1.tail(30) 
     df1 = df1.style   
     df2 = df1.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
@@ -112,16 +113,20 @@ def raw_predictions(request):
     
     #df4 = df1.to_html()
 
+    
+    ###df1 = df1.round({'predicted_home_score': 1, 'predicted_away_score': 1}) 
+
+    df1 = df1.round({'predicted_home_score' : 1, 'predicted_away_score':1})
 
     df1['predicted_goals'] = df1['predicted_home_score'] + df1['predicted_away_score']
-    
+
     #df1 = df1.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
     #df2 = df1.reset_index()   
     #df2 = df2.sort_values(by=["win"], ascending=False)
     df1 = df1.set_axis(['match_datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
     #df1 = df1.sort_values(by=["total_predicted_goals"], ascending= False)
     
-    df2 = df1.style
+    df2 = df1.style.set_precision(2)
     raw = df2.to_html()
 
     return render(request, 'raw.html', {
