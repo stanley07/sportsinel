@@ -35,12 +35,12 @@ def home_loose(request):
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'away_team']]
     df1 = df1.set_axis(['Date', 'Country', 'League', 'Home', 'Away','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
     #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
-    df1 = df1.sort_values(by=["Predicted_home_score"], ascending=True)
+    df1 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
     
     df2 = df1.tail(30) 
-    df1 = df1.style   
-    df2 = df1.to_html()    
+    df2 = df2.style.set_precision(2)   
+    df2 = df2.to_html()    
     #df1 = df1.sort_values(by=["win"], ascending=False)
     home1 = df2  
     return render(request, 'home_loose.html', {
