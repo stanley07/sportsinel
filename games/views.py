@@ -255,6 +255,7 @@ def vip(request):
     #df1 = df1.set_index('match_datetime')
 
     #df1 = df1.drop(["N"], inplace = True)
+    df1 = df1.dropna()
     df2 = df1[df1.selection != "N"]
 
     
