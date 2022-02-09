@@ -83,32 +83,8 @@ def away_loose(request):
 def raw_predictions(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
     
-    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score']]
-    ##df1['predicted'] = np.where((df1['predicted_home_score'] <= df1['predicted_away_score']), df1['away_team'], np.nan)
-    ##df1 = df1.drop(['predicted_home_score', 'predicted_away_score'], axis=1)
-    ##df1 = df1.dropna()
-    #df1 = df1.set_index('match_datetime')
-    
-    #df1 = df1.style
-    
-    #df4 = df1.to_html()
-
-    
-    ###df1 = df1.round({'predicted_home_score': 1, 'predicted_away_score': 1}) 
-
-    #@df1 = df1.round({'predicted_home_score' : 1, 'predicted_away_score':1})
-
-    #@df1['predicted_goals'] = df1['predicted_home_score'] + df1['predicted_away_score']
-
-    #df1 = df1.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
-       
-    #df2 = df2.sort_values(by=["win"], ascending=False)
-    #df1 = df1.set_axis(['match_datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
-    #df1 = df1.sort_values(by=["total_predicted_goals"], ascending= False)
-    #df1 = df.loc[['England', 'Germany']]
+    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score']]  
     df2 = df1.style.set_precision(2)
-    
-    #df2 = Styler.format(precision=2)
     raw = df2.to_html()
 
     return render(request, 'raw.html', {
