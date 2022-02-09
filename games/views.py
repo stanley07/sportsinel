@@ -185,7 +185,7 @@ def top_pick(request):
     df2 = df1.sort_values(by=["Predicted_home_score"], ascending=False)
     
     #df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score'], axis = 1)
-    df2 = df2.head(5) 
+    df2 = df2.head(10) 
     df2 = df2.style   
     df2 = df2.to_html()
    
@@ -225,11 +225,13 @@ def vip(request):
         })
 
 
-def gol(request):
+def sure_bet(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch_selection.csv") 
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'selection', 'predicted_result']]
-    
+    df1 = df1.drop(['predicted_result'], axis=1)
+    df1 = df1.dropna()
     df2 = df1[df1.selection != "N"]
+    df2 = df2.head(20)
     df2 = df2.style
     df2 = df2.to_html()    
     
@@ -237,7 +239,7 @@ def gol(request):
     end = df2  
 
 
-    return render(request, 'gol.html', {
+    return render(request, 'surebet.html', {
         'end':end
         })
 
