@@ -83,7 +83,11 @@ def away_loose(request):
 def raw_predictions(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
     
-    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score']]  
+    df = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score']]  
+     
+    df['total_predicted_goals'] = df['predicted_home_score'] + df['predicted_away_score']
+    df1 = df.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'total_predicted_goals'], axis=1)
+    
     df2 = df1.style.set_precision(2)
     raw = df2.to_html()
 
