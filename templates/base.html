@@ -95,18 +95,7 @@
       <div class="container">
         <div class="row text-center g-4">
           <h1 class="card-text">Algo Output</h1>
-          <div class="col-md">
-            <div class="card" style="width: 18rem;">
-             <img src="{% static 'img/predict.jpg' %}" height="200px" class="card-img-top" alt="soccer!" />
-             <div class="card-body">
-              <h2 class="card-text"><span style="color: green">All-</span><span style="color: red">Predictions</span></h2>
-              <p class="card-text text-secondary">Never make predictions, goes the old axiom, particularly about the future.</p>
-              
-              <a href="{% url 'raw_predictions' %}" class= "btn btn-primary" >View All</a>
-              
-             </div>
-            </div>
-          </div>
+          
         
           <div class="col-md">
             <div class="card" style="width: 18rem;">
@@ -120,6 +109,8 @@
              </div>
             </div>
           </div>
+
+
           <div class="col-md">
             <div class="card" style="width: 18rem;">
              <img src="{% static 'img/predict3.jpg' %}" height="210px" class="card-img-top" alt="soccer!" />
@@ -131,8 +122,23 @@
               </div>
             </div>
           </div>
+
           
+
+          <div class="col-md">
+            <div class="card" style="width: 18rem;">
+             <img src="{% static 'img/predict.jpg' %}" height="200px" class="card-img-top" alt="soccer!" />
+             <div class="card-body">
+              <h2 class="card-text"><span style="color: green">All-</span><span style="color: red">Predictions</span></h2>
+              <p class="card-text text-secondary">Never make predictions, goes the old axiom, particularly about the future.</p>
+              
+              <a href="{% url 'raw_predictions' %}" class= "btn btn-primary" >View All</a>
+              
+             </div>
+            </div>
           </div>
+          
+        </div>
         
       </div>
       
