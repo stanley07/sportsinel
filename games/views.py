@@ -10,6 +10,9 @@ import csv
 def now(request):
 	return render(request, 'now.html')
 
+def privacy(request):
+    return render(request, 'privacy_policy.html')
+
 
 
 def home_wins(request):
