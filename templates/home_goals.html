@@ -1,0 +1,11 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Home Goals</h2>
+<div class="container">
+	{{ awaygol|safe }},
+	{{ mover|safe }} 
+</div>
+{% endblock %}

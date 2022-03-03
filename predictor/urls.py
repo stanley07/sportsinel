@@ -20,12 +20,14 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
-from games.views import away_wins,home_wins,home_loose,privacy,now,away_loose,sure_bet,under_goals,to_win,over_goals,raw_predictions,top_pick,vip,gold
+from games.views import away_wins,home_wins,home_loose,privacy,away_goals,home_goals,now,away_loose,sure_bet,under_goals,to_win,over_goals,raw_predictions,top_pick,vip,gold
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('homewin/', home_wins, name="home_wins"),
     path('awaywin/', away_wins, name="away_wins"),
+    path('awaygoals/', away_goals, name="away_goals"),
+    path('homegoals/', home_goals, name="home_goals"),
     path('homeloose/', home_loose, name="home_loose"),
     path('', now, name="now"),
     path('privacy', privacy, name="privacy"),

@@ -180,10 +180,10 @@
             <div class="card" style="width: 18rem;">
              <img src="/static/img/4.jpg" height="210px" class="card-img-top" alt="...">
              <div class="card-body">
-              <h2 class="card-text"><span style="color: green">Home</span>-<span style="color: red">Goal</span></h2>
+              <h2 class="card-text"><span style="color: green">Home</span>-<span style="color: red">Goals</span></h2>
 
               <p class="card-text text-dark">Some quick tips on different game outcome.</p>
-              <button type="button" style="color: green">Get Info</button>
+              <a href="{% url 'home_goals' %}" class="btn btn-primary">View</a>
              </div>
             </div>
           </div>
@@ -228,7 +228,7 @@
               <h2 class="card-text"><span style="color: green">Away-</span><span style="color: red">Goals</span></h2>
 
               <p class="card-text">Some quick tips on different game outcome.</p>
-              <button type="button" style="color: green">Get Info</button>
+              <a href="{% url 'away_goals' %}" class="btn btn-primary">View</a>
              </div>
             </div>
           </div>

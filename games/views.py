@@ -31,6 +31,36 @@ def home_wins(request):
     return render(request, 'home_wins.html', {
     	'home': home
     	})
+
+
+def home_goals(request):
+    df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")    
+    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'home_team']]
+    df1 = df1.set_axis(['Date', 'Country', 'League', 'Home', 'Away','predicted_home_score', 'predicted_away_score', 'Prediction'], axis=1)
+    #df1 = df1.round({'predicted_home_score' : 1, 'predicted_away_score':1})
+    df1 = df1.sort_values(by=["predicted_home_score"], ascending=False)
+    df1 = df1.drop(['predicted_home_score', 'predicted_away_score','Prediction'], axis=1)
+
+    df2 = df1.head(10)    
+    df3 = df1.tail(10)
+    dx = ['Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5',]
+    dt = ['Over 2.5', 'Over 2.5','Over 2.5','Over 2.5','Over 2.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5']
+    df2['HomeGoal'] = dt
+    df3['HomeGoal'] = dx
+    #df2 = df1.style.set_precision(2) 
+    df2 =df2.style  
+    df2 = df2.to_html()    
+    awaygol = df2 
+    df3 = df3.style 
+    df3 = df3.to_html()
+    mover = df3
+    return render(request, 'away_goals.html', {
+        'awaygol': awaygol,
+        'mover': mover
+        })
+
+
+
 	
 
 def home_loose(request):
@@ -64,6 +94,31 @@ def away_wins(request):
     return render(request, 'away_wins.html', {
     	'away': away
     	})
+
+
+def away_goals(request):
+    df = pd.read_csv("media/csv/predictions_with_gridsearch.csv")  
+    df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'away_team']]  
+    ##df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'away_team']]
+    df1 = df1.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
+    df1 = df1.sort_values(by=["Predicted_away_score"], ascending=False)  
+    df1 = df1.drop(['Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
+    df2 = df1.head(10) 
+    df3 = df1.tail(10)
+    dx = ['Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5',]
+    dt = ['Over 2.5', 'Over 2.5','Over 2.5','Over 2.5','Over 2.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5']
+    df2['AwayGoal'] = dt
+    df3['AwayGoal'] = dx
+    #df2 = df1.style.set_precision(2)   
+    df2 = df2.to_html()    
+    awaygol = df2  
+    df3 = df3.to_html()
+    mover = df3
+    return render(request, 'away_goals.html', {
+        'awaygol': awaygol,
+        'mover': mover
+        })
+
 
 
 
@@ -209,19 +264,12 @@ def top_pick(request):
 def vip(request):
     df = pd.read_csv("media/csv/predictions_with_gridsearch_selection.csv") 
     df1 = df[['match_datetime', 'country', 'league', 'home_team', 'away_team', 'selection', 'predicted_result']]
-    ##df1 = datch_datetime', 'country', 'league', 'home_team', 'away_team', 'predicted_home_score', 'predicted_away_score', 'home_team']]
-    ##df1 = df1.set_axis(['Match_Datetime', 'Country', 'League', 'Home_team', 'Away_team','Predicted_home_score', 'Predicted_away_score', 'Prediction'], axis=1)
-    #df1 = df.rename(columns={'match_datetime': 'Match_Datetime', 'country': 'Country', 'league': 'League', 'home_team': 'Home', 'away_team': 'Away', 'predicted_home_score': 'predicted_home_score', 'predicted_away_score': 'predicted_away_score', 'home_team': 'win' })
     
-    #df1 = df1.drop(df1[df1['selection'] == 'N'].index, inplace = True)
-    #df1 = df1.set_index('match_datetime')
-
-    #df1 = df1.drop(["N"], inplace = True)
     df1 = df1.dropna()
     df2 = df1[df1.selection != "N"]
 
     
-    df2 = df2.style
+    #df2 = df2.style
     df2 = df2.to_html()    
     
     #df1 = df1.sort_values(by=["win"], ascending=False)
