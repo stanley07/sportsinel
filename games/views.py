@@ -54,7 +54,7 @@ def home_goals(request):
     df3 = df3.style 
     df3 = df3.to_html()
     mover = df3
-    return render(request, 'away_goals.html', {
+    return render(request, 'home_goals.html', {
         'awaygol': awaygol,
         'mover': mover
         })
@@ -109,9 +109,11 @@ def away_goals(request):
     dt = ['Over 2.5', 'Over 2.5','Over 2.5','Over 2.5','Over 2.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5']
     df2['AwayGoal'] = dt
     df3['AwayGoal'] = dx
-    #df2 = df1.style.set_precision(2)   
+    #df2 = df1.style.set_precision(2)  
+    df2 = df2.style 
     df2 = df2.to_html()    
     awaygol = df2  
+    df3 = df3.style
     df3 = df3.to_html()
     mover = df3
     return render(request, 'away_goals.html', {
