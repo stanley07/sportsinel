@@ -44,7 +44,7 @@ def home_goals(request):
     df2 = df1.head(10)    
     df3 = df1.tail(10)
     dx = ['Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 2.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5','Under 1.5',]
-    dt = ['Over 2.5', 'Over 2.5','Over 2.5','Over 2.5','Over 2.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5']
+    dt = ['Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 1.5','Over 0.5', 'Over 0.5','Over 0.5','Over 0.5','Over 0.5']
     df2['HomeGoal'] = dt
     df3['HomeGoal'] = dx
     #df2 = df1.style.set_precision(2) 
