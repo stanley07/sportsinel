@@ -271,7 +271,7 @@ def vip(request):
     df2 = df1[df1.selection != "N"]
 
     
-    #df2 = df2.style
+    df2 = df2.style
     df2 = df2.to_html()    
     
     #df1 = df1.sort_values(by=["win"], ascending=False)
